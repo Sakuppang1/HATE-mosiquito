@@ -1,0 +1,66 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Asset meta must be kept; ignore only junk
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.DotSettings.user
+
+# Gradle / Android
+.gradle/
+**/ExportedProject/
+
+# Crash / OS
+sysinfo.txt
+*.stackdump
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Addressables / Burst / Packed
+ServerData/
+**/BurstCache/
+**/StreamingAssets/aa/
+
+# Local / nested junk
+My project/
+debug-*.log
+*.log
+.cursorrules
+
+# Builds & caches
+*.apk
+*.aab
+*.app
+*.exe
+*.unitypackage
+InitTestScene*.unity*
+CrashReports/

@@ -1,0 +1,383 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aafd373ba00eb24b9ac8a248dbb9a51, type: 3}
+  m_Name: B2_WordList
+  m_EditorClassIdentifier: Assembly-CSharp::WordData
+  wordList:
+  - wordName: COMMENT
+    syllables:
+    - text: COM
+      isStressed: 1
+    - text: ment
+      isStressed: 0
+  - wordName: DELIVER
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: LIV
+      isStressed: 1
+    - text: er
+      isStressed: 0
+  - wordName: EFFICIENT
+    syllables:
+    - text: ef
+      isStressed: 0
+    - text: FI
+      isStressed: 1
+    - text: cient
+      isStressed: 0
+  - wordName: ADAPT
+    syllables:
+    - text: a
+      isStressed: 0
+    - text: DAPT
+      isStressed: 1
+  - wordName: EXPERIENCE
+    syllables:
+    - text: ex
+      isStressed: 0
+    - text: PE
+      isStressed: 1
+    - text: ri
+      isStressed: 0
+    - text: ence
+      isStressed: 0
+  - wordName: EXPLORE
+    syllables:
+    - text: ex
+      isStressed: 0
+    - text: PLORE
+      isStressed: 1
+  - wordName: IDENTIFY
+    syllables:
+    - text: i
+      isStressed: 0
+    - text: DEN
+      isStressed: 1
+    - text: ti
+      isStressed: 0
+    - text: fy
+      isStressed: 0
+  - wordName: INVESTIGATE
+    syllables:
+    - text: in
+      isStressed: 0
+    - text: VES
+      isStressed: 1
+    - text: ti
+      isStressed: 0
+    - text: gate
+      isStressed: 0
+  - wordName: CHALLENGE
+    syllables:
+    - text: CHAL
+      isStressed: 1
+    - text: lenge
+      isStressed: 0
+  - wordName: CONVINCE
+    syllables:
+    - text: con
+      isStressed: 0
+    - text: VINCE
+      isStressed: 1
+  - wordName: CONTAIN
+    syllables:
+    - text: con
+      isStressed: 0
+    - text: TAIN
+      isStressed: 1
+  - wordName: DECLAR
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: CLARE
+      isStressed: 1
+  - wordName: DEFINE
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: FINE
+      isStressed: 1
+  - wordName: DIRECTION
+    syllables:
+    - text: di
+      isStressed: 0
+    - text: REC
+      isStressed: 1
+    - text: tion
+      isStressed: 0
+  - wordName: CURRENT
+    syllables:
+    - text: CUR
+      isStressed: 1
+    - text: rent
+      isStressed: 0
+  - wordName: ELEMENT
+    syllables:
+    - text: EL
+      isStressed: 1
+    - text: e
+      isStressed: 0
+    - text: ment
+      isStressed: 0
+  - wordName: DEVELOP
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: VEL
+      isStressed: 1
+    - text: op
+      isStressed: 0
+  - wordName: EXHIBITION
+    syllables:
+    - text: ex
+      isStressed: 0
+    - text: hi
+      isStressed: 0
+    - text: BI
+      isStressed: 1
+    - text: tion
+      isStressed: 0
+  - wordName: EVIDENCE
+    syllables:
+    - text: EV
+      isStressed: 1
+    - text: i
+      isStressed: 0
+    - text: dence
+      isStressed: 0
+  - wordName: BOUNDARY
+    syllables:
+    - text: BOUN
+      isStressed: 1
+    - text: da
+      isStressed: 0
+    - text: ry
+      isStressed: 0
+  - wordName: ATTITUDE
+    syllables:
+    - text: AT
+      isStressed: 1
+    - text: ti
+      isStressed: 0
+    - text: tude
+      isStressed: 0
+  - wordName: BENEFIT
+    syllables:
+    - text: BEN
+      isStressed: 1
+    - text: e
+      isStressed: 0
+    - text: fit
+      isStressed: 0
+  - wordName: CONSEQUENCE
+    syllables:
+    - text: CON
+      isStressed: 1
+    - text: se
+      isStressed: 0
+    - text: quence
+      isStressed: 0
+  - wordName: CONSIDER
+    syllables:
+    - text: con
+      isStressed: 0
+    - text: SID
+      isStressed: 1
+    - text: er
+      isStressed: 0
+  - wordName: CONCENTRATE
+    syllables:
+    - text: CON
+      isStressed: 1
+    - text: cen
+      isStressed: 0
+    - text: trate
+      isStressed: 0
+  - wordName: CULTURAL
+    syllables:
+    - text: CUL
+      isStressed: 1
+    - text: tur
+      isStressed: 0
+    - text: al
+      isStressed: 0
+  - wordName: CONCEPT
+    syllables:
+    - text: CON
+      isStressed: 1
+    - text: cept
+      isStressed: 0
+  - wordName: COLLECT
+    syllables:
+    - text: col
+      isStressed: 0
+    - text: LECT
+      isStressed: 1
+  - wordName: CAPABLE
+    syllables:
+    - text: CA
+      isStressed: 1
+    - text: pa
+      isStressed: 0
+    - text: ble
+      isStressed: 0
+  - wordName: BRILLIANT
+    syllables:
+    - text: BRIL
+      isStressed: 1
+    - text: liant
+      isStressed: 0
+  - wordName: BEHAVIOR
+    syllables:
+    - text: be
+      isStressed: 0
+    - text: HAV
+      isStressed: 1
+    - text: ior
+      isStressed: 0
+  - wordName: AVAILABLE
+    syllables:
+    - text: a
+      isStressed: 0
+    - text: VAIL
+      isStressed: 1
+    - text: a
+      isStressed: 0
+    - text: ble
+      isStressed: 0
+  - wordName: ATTRACT
+    syllables:
+    - text: at
+      isStressed: 0
+    - text: TRACT
+      isStressed: 1
+  - wordName: APPROACH
+    syllables:
+    - text: ap
+      isStressed: 0
+    - text: PROACH
+      isStressed: 1
+  - wordName: ACQUIRE
+    syllables:
+    - text: ac
+      isStressed: 0
+    - text: QUIRE
+      isStressed: 1
+  - wordName: ACHIEVEMENT
+    syllables:
+    - text: a
+      isStressed: 0
+    - text: CHIEVE
+      isStressed: 1
+    - text: ment
+      isStressed: 0
+  - wordName: ACCURATE
+    syllables:
+    - text: AC
+      isStressed: 1
+    - text: cu
+      isStressed: 0
+    - text: rate
+      isStressed: 0
+  - wordName: DOMESTIC
+    syllables:
+    - text: do
+      isStressed: 0
+    - text: MES
+      isStressed: 1
+    - text: tic
+      isStressed: 0
+  - wordName: DOCUMENT
+    syllables:
+    - text: DOC
+      isStressed: 1
+    - text: u
+      isStressed: 0
+    - text: ment
+      isStressed: 0
+  - wordName: DISTRICT
+    syllables:
+    - text: DIS
+      isStressed: 1
+    - text: trict
+      isStressed: 0
+  - wordName: DISCOVER
+    syllables:
+    - text: di
+      isStressed: 0
+    - text: SCOV
+      isStressed: 1
+    - text: er
+      isStressed: 0
+  - wordName: DEMAND
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: MAND
+      isStressed: 1
+  - wordName: DESTROY
+    syllables:
+    - text: de
+      isStressed: 0
+    - text: STROY
+      isStressed: 1
+  - wordName: EXPRESS
+    syllables:
+    - text: ex
+      isStressed: 0
+    - text: PRESS
+      isStressed: 1
+  - wordName: EXTREME
+    syllables:
+    - text: ex
+      isStressed: 0
+    - text: TREME
+      isStressed: 1
+  - wordName: FEATURE
+    syllables:
+    - text: FEA
+      isStressed: 1
+    - text: ture
+      isStressed: 0
+  - wordName: FINANCIAL
+    syllables:
+    - text: fi
+      isStressed: 0
+    - text: NAN
+      isStressed: 1
+    - text: cial
+      isStressed: 0
+  - wordName: FREQUENT
+    syllables:
+    - text: FRE
+      isStressed: 1
+    - text: quent
+      isStressed: 0
+  - wordName: FUNCTION
+    syllables:
+    - text: FUNC
+      isStressed: 1
+    - text: tion
+      isStressed: 0
+  - wordName: IMAGINATION
+    syllables:
+    - text: i
+      isStressed: 0
+    - text: ma
+      isStressed: 0
+    - text: gi
+      isStressed: 0
+    - text: NA
+      isStressed: 1
+    - text: tion
+      isStressed: 0
