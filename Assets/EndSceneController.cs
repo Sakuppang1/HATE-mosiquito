@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.UI;
 public class EndSceneController : MonoBehaviour
 {
     [SerializeField] string gameSceneName = "GameScene";
-    [SerializeField] string startSceneName = "StartScene";
+    [SerializeField] string startSceneName = "TutorialScene";
 
     void Awake()
     {
@@ -64,7 +64,7 @@ public class EndSceneController : MonoBehaviour
         CreateText(panel.transform, "Score", $"得分：{score}\n完成单词数：{words}", 42, new Vector2(0, 40), new Vector2(1400, 280), new Color(0.92f, 0.94f, 1f, 1f));
 
         CreateButton(panel.transform, "BtnAgain", "再来一局", new Vector2(-220, -200), () => SceneManager.LoadScene(gameSceneName));
-        CreateButton(panel.transform, "BtnHome", "返回开始", new Vector2(220, -200), () => SceneManager.LoadScene(startSceneName));
+        CreateButton(panel.transform, "BtnHome", "返回教程", new Vector2(220, -200), () => SceneManager.LoadScene(startSceneName));
     }
 
     static void CreateText(Transform parent, string name, string content, int fontSize, Vector2 anchoredPos, Vector2 size, Color color)

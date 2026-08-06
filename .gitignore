@@ -57,6 +57,7 @@ debug-*.log
 .cursorrules
 
 # Builds & caches
+Builds/
 *.apk
 *.aab
 *.app
