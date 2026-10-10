@@ -947,6 +947,7 @@ GameObject:
   - component: {fileID: 356519798614879916}
   - component: {fileID: 1185084645103448417}
   - component: {fileID: 2642873382001571169}
+  - component: {fileID: 8712345678901234567}
   m_Layer: 0
   m_Name: WordSpawnerManager
   m_TagString: Untagged
@@ -995,6 +996,9 @@ MonoBehaviour:
   startCountdown: {fileID: 2642873382001571169}
   delayBeforeSpawn: 0.8
   timeBetweenWords: 6
+  showWordPreview: 1
+  wordPreview: {fileID: 8712345678901234567}
+  previewHideBeforeSpawnSeconds: 0.25
   micInitialSuppressSeconds: 0.22
   duringWordThresholdMultiplier: 1.65
   wordTtsTailPaddingSeconds: 0.12
@@ -1120,6 +1124,24 @@ MonoBehaviour:
   overlayRoot: {fileID: 0}
   countdownText: {fileID: 0}
   disableMicDuringCountdown: 1
+--- !u!114 &8712345678901234567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778674144101035538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a8f1e29b3d5470a8e6f2d1c9b0e3a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WordBackgroundPreview
+  buildRuntimeTextIfMissing: 1
+  previewText: {fileID: 0}
+  worldPosition: {x: 0, y: -1.35, z: 0}
+  fontSize: 11
+  textColor: {r: 0.29, g: 0.38, b: 0.4, a: 0.55}
+  sortingOrder: -5
 --- !u!1 &4798035464215000337
 GameObject:
   m_ObjectHideFlags: 0

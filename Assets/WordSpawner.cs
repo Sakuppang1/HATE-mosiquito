@@ -39,6 +39,14 @@ public class WordSpawner : MonoBehaviour
     public float delayBeforeSpawn = 0.8f; // 发音后，等待多久生成方块
     public float timeBetweenWords = 4.0f; // 两个单词之间的总间隔
 
+    [Header("单词背景预览")]
+    [Tooltip("为 true 时在音节块下落前显示整词大字背景预览")]
+    public bool showWordPreview = true;
+    [Tooltip("留空则自动查找场景中的 WordBackgroundPreview")]
+    public WordBackgroundPreview wordPreview;
+    [Tooltip("音节块生成前多久隐藏预览（秒），须小于 delayBeforeSpawn")]
+    public float previewHideBeforeSpawnSeconds = 0.25f;
+
     [Header("麦克风防误触（不整段屏蔽，避免下一词播音时上一词无法判定）")]
     [Tooltip("每次新单词读音刚开始的一小段时间内完全屏蔽声控，抑制开头脉冲被麦克风拾取导致的误吃")]
     public float micInitialSuppressSeconds = 0.22f;
@@ -158,6 +166,13 @@ public class WordSpawner : MonoBehaviour
 
     IEnumerator RunOneWord(WordItem selectedWord)
     {
+        if (wordPreview == null)
+            wordPreview = FindFirstObjectByType<WordBackgroundPreview>();
+
+        string previewLabel = WordBackgroundPreview.FormatDisplayWord(selectedWord);
+        if (showWordPreview && wordPreview != null && !string.IsNullOrEmpty(previewLabel))
+            wordPreview.Show(previewLabel);
+
         AudioClip clip = Resources.Load<AudioClip>("Audio/" + selectedWord.wordName.ToLower());
         if (clip != null)
         {
@@ -170,7 +185,23 @@ public class WordSpawner : MonoBehaviour
             Debug.LogWarning("找不到音频: " + selectedWord.wordName);
         }
 
-        yield return new WaitForSeconds(delayBeforeSpawn);
+        float spawnDelay = Mathf.Max(0f, delayBeforeSpawn);
+        float hideLead = Mathf.Clamp(previewHideBeforeSpawnSeconds, 0.05f, spawnDelay);
+        float previewVisibleSeconds = Mathf.Max(0.1f, spawnDelay - hideLead);
+
+        if (showWordPreview && wordPreview != null)
+        {
+            yield return new WaitForSeconds(previewVisibleSeconds);
+            wordPreview.Hide();
+            float afterHide = spawnDelay - previewVisibleSeconds;
+            if (afterHide > 0f)
+                yield return new WaitForSeconds(afterHide);
+        }
+        else
+        {
+            yield return new WaitForSeconds(spawnDelay);
+        }
+
         SpawnWord(selectedWord);
     }
 
