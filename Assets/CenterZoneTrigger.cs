@@ -117,6 +117,9 @@ public class CenterZoneController : MonoBehaviour
     private AudioClip micClip;
     private float[] audioSamples = new float[256];
     private List<GameObject> blocksInRange = new List<GameObject>();
+
+    /// <summary>带 Syllable 标签的块进入中间判定区时触发（用于背景整词预览等）。</summary>
+    public event System.Action<GameObject> SyllableEnteredCenter;
     AudioSource _centerCueSource;
 
     /// <summary>上一帧 Microphone.GetPosition，用于检测写入头停滞。</summary>
@@ -543,6 +546,7 @@ public class CenterZoneController : MonoBehaviour
 
             blocksInRange.Add(collision.gameObject);
             TryPlayCenterSyllableCue(collision.gameObject);
+            SyllableEnteredCenter?.Invoke(collision.gameObject);
         }
     }
 

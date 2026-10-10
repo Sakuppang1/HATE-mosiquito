@@ -89,6 +89,9 @@ public class WordBackgroundPreview : MonoBehaviour
         previewText.gameObject.SetActive(!string.IsNullOrEmpty(displayWord));
     }
 
+    public bool IsVisible =>
+        previewText != null && previewText.gameObject.activeSelf && !string.IsNullOrEmpty(previewText.text);
+
     public void Hide()
     {
         if (previewText == null)

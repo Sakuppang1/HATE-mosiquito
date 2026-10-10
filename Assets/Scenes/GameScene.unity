@@ -1580,7 +1580,9 @@ MonoBehaviour:
   timeBetweenWords: 6
   showWordPreview: 1
   wordPreview: {fileID: 2135027406}
-  previewHideBeforeSpawnSeconds: 0.25
+  centerZone: {fileID: 1774901980}
+  previewHideWhenAllSyllablesReachCenter: 0
+  previewCenterHideTimeoutSeconds: 45
   micInitialSuppressSeconds: 0.22
   duringWordThresholdMultiplier: 1.65
   wordTtsTailPaddingSeconds: 0.12
