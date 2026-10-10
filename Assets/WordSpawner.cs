@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,18 @@ public class WordSpawner : MonoBehaviour
     public float delayBeforeSpawn = 0.8f; // 发音后，等待多久生成方块
     public float timeBetweenWords = 4.0f; // 两个单词之间的总间隔
 
+    [Header("单词背景预览")]
+    [Tooltip("为 true 时在音节块下落前显示整词大字背景预览")]
+    public bool showWordPreview = true;
+    [Tooltip("留空则自动查找场景中的 WordBackgroundPreview")]
+    public WordBackgroundPreview wordPreview;
+    [Tooltip("留空则自动查找场景中的 CenterZoneController")]
+    public CenterZoneController centerZone;
+    [Tooltip("为 true 时须本词所有音节块都进入判定区后才隐藏；为 false 时任一块进入即隐藏")]
+    public bool previewHideWhenAllSyllablesReachCenter;
+    [Tooltip("若超时仍未满足进区条件则强制隐藏预览，避免卡死")]
+    public float previewCenterHideTimeoutSeconds = 45f;
+
     [Header("麦克风防误触（不整段屏蔽，避免下一词播音时上一词无法判定）")]
     [Tooltip("每次新单词读音刚开始的一小段时间内完全屏蔽声控，抑制开头脉冲被麦克风拾取导致的误吃")]
     public float micInitialSuppressSeconds = 0.22f;
@@ -70,6 +83,8 @@ public class WordSpawner : MonoBehaviour
     bool _bgmStarted;
     bool _sequenceRunning;
     private int currentIndex = 0;
+    int _previewHideGeneration;
+    Coroutine _previewHideCoroutine;
 
     void Start()
     {
@@ -158,6 +173,13 @@ public class WordSpawner : MonoBehaviour
 
     IEnumerator RunOneWord(WordItem selectedWord)
     {
+        if (wordPreview == null)
+            wordPreview = FindFirstObjectByType<WordBackgroundPreview>();
+
+        string previewLabel = WordBackgroundPreview.FormatDisplayWord(selectedWord);
+        if (showWordPreview && wordPreview != null && !string.IsNullOrEmpty(previewLabel))
+            wordPreview.Show(previewLabel);
+
         AudioClip clip = Resources.Load<AudioClip>("Audio/" + selectedWord.wordName.ToLower());
         if (clip != null)
         {
@@ -170,8 +192,102 @@ public class WordSpawner : MonoBehaviour
             Debug.LogWarning("找不到音频: " + selectedWord.wordName);
         }
 
-        yield return new WaitForSeconds(delayBeforeSpawn);
-        SpawnWord(selectedWord);
+        yield return new WaitForSeconds(Mathf.Max(0f, delayBeforeSpawn));
+
+        List<GameObject> spawnedBlocks = SpawnWord(selectedWord);
+        ScheduleHidePreviewWhenBlocksReachCenter(spawnedBlocks);
+    }
+
+    void ScheduleHidePreviewWhenBlocksReachCenter(List<GameObject> wordBlocks)
+    {
+        if (_previewHideCoroutine != null)
+        {
+            StopCoroutine(_previewHideCoroutine);
+            _previewHideCoroutine = null;
+        }
+
+        if (!showWordPreview || wordPreview == null)
+            return;
+
+        if (wordBlocks == null || wordBlocks.Count == 0)
+        {
+            wordPreview.Hide();
+            return;
+        }
+
+        int generation = ++_previewHideGeneration;
+        _previewHideCoroutine = StartCoroutine(HidePreviewWhenBlocksReachCenter(wordBlocks, generation));
+    }
+
+    IEnumerator HidePreviewWhenBlocksReachCenter(List<GameObject> wordBlocks, int generation)
+    {
+        if (centerZone == null)
+            centerZone = FindFirstObjectByType<CenterZoneController>();
+
+        if (centerZone == null)
+        {
+            Debug.LogWarning("WordSpawner: 未找到 CenterZoneController，无法按进区隐藏预览。");
+            if (generation == _previewHideGeneration)
+                wordPreview.Hide();
+            yield break;
+        }
+
+        var tracked = new HashSet<GameObject>();
+        foreach (var block in wordBlocks)
+        {
+            if (block != null)
+                tracked.Add(block);
+        }
+
+        if (tracked.Count == 0)
+        {
+            if (generation == _previewHideGeneration)
+                wordPreview.Hide();
+            yield break;
+        }
+
+        bool satisfied = false;
+        void OnEntered(GameObject block)
+        {
+            if (generation != _previewHideGeneration || satisfied)
+                return;
+            if (block == null || !tracked.Contains(block))
+                return;
+
+            if (previewHideWhenAllSyllablesReachCenter)
+            {
+                tracked.Remove(block);
+                if (tracked.Count == 0)
+                    satisfied = true;
+            }
+            else
+            {
+                satisfied = true;
+            }
+        }
+
+        centerZone.SyllableEnteredCenter += OnEntered;
+
+        float elapsed = 0f;
+        float timeout = Mathf.Max(1f, previewCenterHideTimeoutSeconds);
+        while (!satisfied && elapsed < timeout)
+        {
+            if (generation != _previewHideGeneration)
+            {
+                centerZone.SyllableEnteredCenter -= OnEntered;
+                yield break;
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        centerZone.SyllableEnteredCenter -= OnEntered;
+
+        if (generation == _previewHideGeneration && wordPreview.IsVisible)
+            wordPreview.Hide();
+
+        _previewHideCoroutine = null;
     }
 
     IEnumerator WaitForAllSyllableBlocksCleared()
@@ -212,8 +328,9 @@ public class WordSpawner : MonoBehaviour
             Debug.LogWarning("WordSpawner: endSceneName 为空，无法进入结算场景。");
     }
 
-    void SpawnWord(WordItem word)
+    List<GameObject> SpawnWord(WordItem word)
     {
+        var spawned = new List<GameObject>();
         if (!tutorialMode || playBgmInTutorial)
             TryStartBgmOnFirstSpawn();
 
@@ -221,6 +338,7 @@ public class WordSpawner : MonoBehaviour
         foreach (var syl in word.syllables)
         {
             GameObject block = Instantiate(syllablePrefab, spawnPoint.position + new Vector3(offset, 0, 0), Quaternion.identity);
+            spawned.Add(block);
             SyllableDisplay display = block.GetComponent<SyllableDisplay>();
             if (display != null)
             {
@@ -231,5 +349,7 @@ public class WordSpawner : MonoBehaviour
                 mover.SetMosquito(syl.isStressed);
             offset += 2.0f;
         }
+
+        return spawned;
     }
 }
